@@ -10,13 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Scp {
-    private JFrame frame;
+    final private JFrame frame;
     private JTextField serverField;
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JTextField destinationField;
 
     public static void runSCPTo(String incomingSource) {
+    	System.out.println("HIIII");
         EventQueue.invokeLater(() -> {
             try {
             	Scp window = new Scp(incomingSource, false);
@@ -25,6 +26,7 @@ public class Scp {
                 e.printStackTrace();
             }
         });
+        System.out.println("BYEEE");
     }
     
     public static void runSCPFrom(String incomingSource) {
@@ -87,7 +89,9 @@ public class Scp {
     	    	}else {
         	    	scpFileTo(incomingSource);
     	    	}
+    	    	frame.dispose();
     	    }
+    	    
     	});
     	btnScp.setBounds(155, 193, 117, 29);
     	frame.getContentPane().add(btnScp);
