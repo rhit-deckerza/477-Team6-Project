@@ -16,6 +16,7 @@
 package net.sf.jftp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -244,7 +245,7 @@ public class JFtp extends JPanel implements WindowListener, ComponentListener,
 
         log = new JTextArea();
         log.setBackground(GUIDefaults.light);
-        log.setForeground(GUIDefaults.front);
+        log.setForeground(Color.red);
         log.setEditable(false);
         logSp = new JScrollPane(log);
         logSp.setSize(new Dimension(428, 148));
