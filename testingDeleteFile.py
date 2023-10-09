@@ -18,9 +18,9 @@ pyautogui.moveTo(1166, 704, duration=.5)
 pyautogui.click()
 ########################################
 time.sleep(3) # Wait for connection
-pyautogui.moveTo(420, 231, duration=.5) # Select File
+pyautogui.moveTo(520, 231, duration=.5) # Select File
 pyautogui.click()
-pyautogui.moveTo(494, 180, duration=1) # Download Selected
+pyautogui.moveTo(735, 177, duration=1) # Delete File
 pyautogui.click()
 time.sleep(random.random()) # Wait a random amount between 0 seconds and 1 second
 os.system("bash killServer.sh") # Kill Servers
