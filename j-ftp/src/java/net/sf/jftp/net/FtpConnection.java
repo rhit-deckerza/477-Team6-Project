@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 import net.sf.jftp.config.LoadSet;
 import net.sf.jftp.config.SaveSet;
 import net.sf.jftp.config.Settings;
+import net.sf.jftp.net.error.UploadError;
 import net.sf.jftp.system.StringUtils;
 import net.sf.jftp.system.logging.Log;
 
@@ -1701,7 +1702,8 @@ public class FtpConnection implements BasicConnection, FtpConstants
 
 					File f = new File(path);
 					if(f.length()>Integer.MAX_VALUE) {
-						return UPLOAD_FAILED;
+						UploadError error = new UploadError();
+						return error.LargeFilesize();
 					}
 					if(f.exists() && (f.length() <= Integer.parseInt(size)))
 					{
