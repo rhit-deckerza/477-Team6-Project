@@ -218,6 +218,8 @@ public class FtpConnection implements BasicConnection, FtpConstants
 
 		if(msg)
 		{
+			// Log.debug("ERROR: File can not be uploaded because the " + host)
+			// Log.debug("ERROR: File can not be downloaded because the " + host)
 			Log.debug("Connecting to " + host);
 		}
 
