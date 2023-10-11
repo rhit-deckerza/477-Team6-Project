@@ -632,6 +632,35 @@ public class JFtp extends JPanel implements WindowListener, ComponentListener,
     				LocalIO.pause(50);
     			}
     			
+    			if(argv[idx].startsWith("name=")) {
+    				String newName = argv[idx].substring("name=".length());
+    				Log.debug("renaming to : "+newName);
+    				idx++;
+    				
+    				remoteDir.getCon().rename("default", newName);
+    			}
+    			
+    			if(argv[idx].startsWith("by-date")) {	
+    				idx++;
+    				remoteDir.getCon().sortDates();
+    			}
+    			
+    			if(argv[idx].startsWith("wait=")) {	
+    				String timeout = argv[idx].substring("wait=".length());
+//    				Log.debug("renaming to : "+newName);
+    				idx++;
+    				try {
+						remoteDir.getCon().wait(Long.parseLong(timeout));
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				
+    			}
+    			
     			for(int i=idx; i<argv.length; i++) {
     				String path = null;
     				String file = argv[i];

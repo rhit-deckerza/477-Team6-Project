@@ -56,22 +56,21 @@ import net.sf.jftp.net.FtpURLConnection;
 import net.sf.jftp.net.wrappers.StartConnection;
 import net.sf.jftp.system.StringUtils;
 import net.sf.jftp.system.logging.Log;
-
+import net.sf.jftp.tools.ConfigLoader; 
 
 public class HostChooser extends HFrame implements ActionListener,
                                                    WindowListener
 {
-    public HTextField host = new HTextField("Hostname:", "localhost        ");
-    public HTextField user = new HTextField("Username:", "anonymous        ");
+	public HTextField host = new HTextField("Hostname:", ConfigLoader.getHostname());
+	public HTextField user = new HTextField("Username:", ConfigLoader.getUsername());
+	public HPasswordField pass = new HPasswordField("Password:", ConfigLoader.getPassword());
+	public HTextField port = new HTextField("Port:", ConfigLoader.getPort());
+	public HTextField dl = new HTextField("Max. connections:", ConfigLoader.getMaxConnections());
+	public HTextField crlf = new HTextField("Override server newline:", ConfigLoader.getOverrideServerNewline());
 
-    //public static HTextField pass = new HTextField("Password:","none@nowhere.no");
-    public HPasswordField pass = new HPasswordField("Password:",
-                                                    "none@nowhere.no");
-    public HTextField port = new HTextField("Port:    ", "21");
+
     public HTextField cwd = new HTextField("Remote:  ", Settings.defaultDir);
     public HTextField lcwd = new HTextField("Local:   ", Settings.defaultWorkDir);
-    public HTextField dl = new HTextField("Max. connections:    ", "3");
-    public HTextField crlf = new HTextField("Override server newline:    ", "<default>");
     private JCheckBox anonBox = new JCheckBox("Use anonymous login", false);
     private JCheckBox listBox = new JCheckBox("LIST compatibility mode", false);
     private JCheckBox dirBox = new JCheckBox("Use default directories",

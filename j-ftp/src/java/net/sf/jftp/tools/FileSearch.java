@@ -32,7 +32,7 @@ import java.util.Vector;
 
 import net.sf.jftp.system.LocalIO;
 import net.sf.jftp.system.logging.Log;
-
+import net.sf.jftp.tools.ConfigLoader;
 
 public class FileSearch 
 {
@@ -55,11 +55,11 @@ public class FileSearch
     
 
     public static void main(String argv[]) {
-        String[] typeArray = { ".gz", ".bz2", ".zip", ".rar" };
-        String[] termArray = { "linux", "kernel" };
-        String[] optArray = { "download", "file", "mirror", "location" };
-        String[] ignoreArray = { ".gif", ".jpg", ".png", ".swf", ".jar", ".class", ".google." };
-        String[] scanArray = { ".html", ".htm", "/", ".jsp", ".jhtml", ".phtml", ".asp", ".xml", ".js", ".cgi" };
+    	String[] typeArray = ConfigLoader.loadTypeArray();
+        String[] termArray = ConfigLoader.loadTermArray();
+        String[] optArray = ConfigLoader.loadOptArray();
+        String[] ignoreArray = ConfigLoader.loadIgnoreArray();
+        String[] scanArray = ConfigLoader.loadScanArray();
         String url = "http://www.google.de/search?hl=de&q=";
         
         for(int i=0; i<termArray.length; i++) {
