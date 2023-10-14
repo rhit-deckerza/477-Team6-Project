@@ -22,6 +22,6 @@ pyautogui.moveTo(217, 231, duration=.5) # Select File
 pyautogui.click()
 pyautogui.moveTo(444, 180, duration=1) # Upload Selected
 pyautogui.click()
-time.sleep(random.random()) # Wait a random amount between 0 seconds and 1 second
+time.sleep(1) # Wait a random amount between 0 seconds and 1 second
 os.system("bash killServer.sh") # Kill Servers
 time.sleep(10) # Do Nothing
