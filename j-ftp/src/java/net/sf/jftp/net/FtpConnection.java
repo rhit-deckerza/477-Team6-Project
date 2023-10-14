@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 import net.sf.jftp.config.LoadSet;
 import net.sf.jftp.config.SaveSet;
 import net.sf.jftp.config.Settings;
+import net.sf.jftp.net.error.UploadError;
 import net.sf.jftp.system.StringUtils;
 import net.sf.jftp.system.logging.Log;
 
@@ -138,6 +139,11 @@ public class FtpConnection implements BasicConnection, FtpConstants
 	public Vector<String> currentSizes = new Vector<String>();
 	public Vector<String> currentPerms = new Vector<String>();
 
+	//custom made variable & function for M2
+	boolean failUpload = false;
+	void resetFailUploadIndicator() {
+		failUpload = false;
+	}
 	/**
 	 * Create an instance with a given host
 	 *
@@ -1566,7 +1572,6 @@ public class FtpConnection implements BasicConnection, FtpConstants
 		Log.out("ftp upload started: " + this);
 
 		int stat;
-
 		if((in == null) && new File(file).isDirectory())
 		{
 			shortProgress = true;
@@ -1590,6 +1595,9 @@ public class FtpConnection implements BasicConnection, FtpConstants
 		{
 			dataType = DataConnection.PUT;
 			stat = rawUpload(file, realName, in);
+			if(stat==UPLOAD_FAILED) {
+				return UPLOAD_FAILED;
+			}
 
 			try
 			{
@@ -1610,8 +1618,8 @@ public class FtpConnection implements BasicConnection, FtpConstants
 		catch(Exception ex)
 		{
 		}
-
 		return stat;
+
 	}
 
 	private int rawUpload(String file)
@@ -1693,7 +1701,10 @@ public class FtpConnection implements BasicConnection, FtpConstants
 					}
 
 					File f = new File(path);
-
+					if(f.length()>Integer.MAX_VALUE) {
+						UploadError error = new UploadError();
+						return error.LargeFilesize();
+					}
 					if(f.exists() && (f.length() <= Integer.parseInt(size)))
 					{
 						Log.out("skipping resuming, file is <= filelength");
