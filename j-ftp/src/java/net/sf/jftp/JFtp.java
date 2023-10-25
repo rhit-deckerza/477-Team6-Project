@@ -584,74 +584,80 @@ public class JFtp extends JPanel implements WindowListener, ComponentListener,
 
     public static void main(String[] argv)
     {
-    	try {
-    		long start = System.currentTimeMillis();
-
-    		Log.out("starting up jftp...");
-    		System.setProperty("sshtools.logfile", Settings.appHomeDir + "log4.txt");
-
-    		Settings.enableResuming = true;
-    		Settings.enableUploadResuming = true;
-    		Settings.noUploadResumingQuestion = false;
-
-    		setSocksProxyOptions(Settings.getSocksProxyHost(),
-    				Settings.getSocksProxyPort());
-
-    		JFtp jftp = new JFtp(true);
-    		
-
-    		//autoconnect
-    		if(argv.length > 0)
-    		{
-    			if(argv[0].indexOf("sftp:") >= 0) {
-    				new SftpHostChooser().update(argv[0]);
-    			}
-    			else {
-    				jftp.hc.update(argv[0]);
-    			}
-    		}
-
-    		Log.out("jftp is up and running.");
-    		long end = System.currentTimeMillis();
-    		Log.out("startup time: " + (end - start) + "ms.");
-    		
-    		//batch processing
-    		if(argv.length > 1)
-    		{
-    			int idx = 1;
-    			if(argv[idx].startsWith("localDir=")) {
-    				String path = argv[idx].substring("localDir=".length());
-    				Log.debug("Setting local Dir: "+path);
-    				localDir.getCon().chdir(path);
-    				idx++;
-    				
-    				remoteDir.getCon().setLocalPath(localDir.getCon().getPWD());
-    			}
-    			
-    			while(!remoteDir.getCon().isConnected()) {
-    				LocalIO.pause(50);
-    			}
-    			
-    			for(int i=idx; i<argv.length; i++) {
-    				String path = null;
-    				String file = argv[i];
-    				
-    				if(argv[i].indexOf("/") >= 0) {
-    					path = argv[i].substring(0,argv[i].lastIndexOf("/"));
-    					file = argv[i].substring(argv[i].lastIndexOf("/")+1);
-    				}
-    				Log.debug("Download: "+path+":"+file);
-    				
-    				if(path != null) {
-    					remoteDir.getCon().chdir(path);
-    				}
-    				remoteDir.getCon().download(file);
-    			}
-    		}
-    	}
-    	catch(Error ex) {
-    		ex.printStackTrace();
-    	}
+    	SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new LoginUI().setVisible(true);
+            }
+        });
+//    	try {
+//    		long start = System.currentTimeMillis();
+//
+//    		Log.out("starting up jftp...");
+//    		System.setProperty("sshtools.logfile", Settings.appHomeDir + "log4.txt");
+//
+//    		Settings.enableResuming = true;
+//    		Settings.enableUploadResuming = true;
+//    		Settings.noUploadResumingQuestion = false;
+//
+//    		setSocksProxyOptions(Settings.getSocksProxyHost(),
+//    				Settings.getSocksProxyPort());
+//
+//    		JFtp jftp = new JFtp(true);
+//    		
+//
+//    		//autoconnect
+//    		if(argv.length > 0)
+//    		{
+//    			if(argv[0].indexOf("sftp:") >= 0) {
+//    				new SftpHostChooser().update(argv[0]);
+//    			}
+//    			else {
+//    				jftp.hc.update(argv[0]);
+//    			}
+//    		}
+//
+//    		Log.out("jftp is up and running.");
+//    		long end = System.currentTimeMillis();
+//    		Log.out("startup time: " + (end - start) + "ms.");
+//    		
+//    		//batch processing
+//    		if(argv.length > 1)
+//    		{
+//    			int idx = 1;
+//    			if(argv[idx].startsWith("localDir=")) {
+//    				String path = argv[idx].substring("localDir=".length());
+//    				Log.debug("Setting local Dir: "+path);
+//    				localDir.getCon().chdir(path);
+//    				idx++;
+//    				
+//    				remoteDir.getCon().setLocalPath(localDir.getCon().getPWD());
+//    			}
+//    			
+//    			while(!remoteDir.getCon().isConnected()) {
+//    				LocalIO.pause(50);
+//    			}
+//    			
+//    			for(int i=idx; i<argv.length; i++) {
+//    				String path = null;
+//    				String file = argv[i];
+//    				
+//    				if(argv[i].indexOf("/") >= 0) {
+//    					path = argv[i].substring(0,argv[i].lastIndexOf("/"));
+//    					file = argv[i].substring(argv[i].lastIndexOf("/")+1);
+//    				}
+//    				Log.debug("Download: "+path+":"+file);
+//    				
+//    				if(path != null) {
+//    					remoteDir.getCon().chdir(path);
+//    				}
+//    				remoteDir.getCon().download(file);
+//    			}
+//    		}
+//    	}
+//    	catch(Error ex) {
+//    		ex.printStackTrace();
+//    	}
     }
 
     protected void displayGUI() {
