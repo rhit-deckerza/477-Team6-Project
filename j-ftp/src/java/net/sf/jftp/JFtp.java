@@ -96,6 +96,12 @@ import net.sf.jftp.system.UpdateDaemon;
 import net.sf.jftp.system.logging.Log;
 import net.sf.jftp.system.logging.Logger;
 import net.sf.jftp.tools.RSSFeeder;
+import net.sf.jftp.SimpleLogger;
+import net.sf.jftp.AccessLevel;
+import net.sf.jftp.LoginUI;
+import net.sf.jftp.SimpleLogger;
+import net.sf.jftp.User;
+import net.sf.jftp.UserDatabase;
 
 
 public class JFtp extends JPanel implements WindowListener, ComponentListener,
@@ -998,6 +1004,10 @@ public class JFtp extends JPanel implements WindowListener, ComponentListener,
 
     public void addConnection(String name, BasicConnection con)
     {
+    	// New code added
+    	SimpleLogger.log("Attempting to add a connection with name: " + name);
+    	
+    	// Existing Code
         con.addConnectionListener((ConnectionListener) localDir);
 
         Dir tmp = (Dir) new RemoteDir();
@@ -1171,6 +1181,8 @@ public class JFtp extends JPanel implements WindowListener, ComponentListener,
         if(f != null)
         {
             f.setClosable(ok);
+            // New Code
+            SimpleLogger.log("Closable state of component " + component + " set to " + ok);
         }
         else
         {
@@ -1197,6 +1209,7 @@ public class JFtp extends JPanel implements WindowListener, ComponentListener,
     {
         //mainFrame.setJMenuBar(new AppMenuBar(this));
         menuBar.resetFileItems();
+        SimpleLogger.log("Menu bar updated.");
     }
 
     public void internalFrameClosing(InternalFrameEvent e)
