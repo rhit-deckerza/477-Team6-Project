@@ -18,10 +18,8 @@ pyautogui.moveTo(1166, 704, duration=.5)
 pyautogui.click()
 ########################################
 time.sleep(3) # Wait for connection
-pyautogui.moveTo(217, 231, duration=.5) # Select File
-pyautogui.click()
-pyautogui.moveTo(444, 180, duration=1) # Upload Selected
-pyautogui.click()
-time.sleep(1) # Wait a random amount between 0 seconds and 1 second
-os.system("bash killServer.sh") # Kill Servers
-time.sleep(10) # Do Nothing
+for k in range(100):
+    pyautogui.moveTo(217, 231, duration=.01) # Select File
+    pyautogui.click()
+    pyautogui.moveTo(444, 180, duration=.01) # Upload Selected
+    pyautogui.click()
