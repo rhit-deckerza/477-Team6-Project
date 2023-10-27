@@ -24,7 +24,7 @@ public interface FtpConstants
     /** List */
 
     //public static final String LIST = "LIST -laL";
-
+	public static final int UPLOAD_FAILED = -100;
     /** Possible upload() / download() return code */
     public static final int TRANSFER_FAILED = -1;
 
